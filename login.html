@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول | نظام إدارة العيادة</title>
+    <link rel="stylesheet" href="assets/fonts/arabic-fonts.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/themes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="assets/images/icons/favicon.ico">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <img src="assets/images/icons/logo.png" alt="شعار النظام" class="login-logo">
+                <h1 class="login-title">نظام إدارة العيادة الطبية</h1>
+                <p class="login-subtitle">سجّل الدخول للوصول إلى النظام</p>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username" class="form-label">
+                        <i class="fas fa-user"></i>
+                        اسم المستخدم
+                    </label>
+                    <input type="text" id="username" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">
+                        <i class="fas fa-lock"></i>
+                        كلمة المرور
+                    </label>
+                    <input type="password" id="password" class="form-control" required>
+                </div>
+                
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="rememberMe">
+                        <span>تذكرني</span>
+                    </label>
+                    <a href="#forgot-password" class="forgot-password">نسيت كلمة المرور؟</a>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block btn-login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    تسجيل الدخول
+                </button>
+            </form>
+            
+            <div class="login-footer">
+                <p>© 2024 نظام إدارة العيادة الطبية. جميع الحقوق محفوظة.</p>
+                <p class="version">الإصدار 1.0.0</p>
+            </div>
+        </div>
+        
+        <div class="login-info">
+            <h2>مميزات النظام</h2>
+            <ul class="features-list">
+                <li><i class="fas fa-check"></i> إدارة الأطباء والمرضى</li>
+                <li><i class="fas fa-check"></i> جدولة المواعيد الذكية</li>
+                <li><i class="fas fa-check"></i> نظام الوصفات الطبية</li>
+                <li><i class="fas fa-check"></i> إدارة المخزون والصيدلية</li>
+                <li><i class="fas fa-check"></i> الفواتير والتقارير المالية</li>
+                <li><i class="fas fa-check"></i> عمل بدون إنترنت</li>
+            </ul>
+            
+            <div class="support-info">
+                <h3><i class="fas fa-headset"></i> الدعم الفني</h3>
+                <p>هاتف: 0112345678</p>
+                <p>بريد إلكتروني: support@clinic.com</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal لنسيان كلمة المرور -->
+    <div id="forgotPasswordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">استعادة كلمة المرور</h3>
+                <button class="btn-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="forgotPasswordForm">
+                    <div class="form-group">
+                        <label for="resetEmail" class="form-label">البريد الإلكتروني</label>
+                        <input type="email" id="resetEmail" class="form-control" required>
+                        <p class="form-text">سنرسل رابط استعادة كلمة المرور إلى بريدك الإلكتروني</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary">إلغاء</button>
+                <button class="btn btn-primary">إرسال</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="assets/js/core/database.js"></script>
+    <script src="assets/js/core/auth.js"></script>
+    <script src="assets/js/utils/helpers.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // تهيئة قاعدة البيانات
+            database.initDatabase().then(() => {
+                console.log('تم تهيئة قاعدة البيانات');
+            });
+            
+            // إعداد نموذج تسجيل الدخول
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const username = document.getElementById('username').value;
+                    const password = document.getElementById('password').value;
+                    const rememberMe = document.getElementById('rememberMe').checked;
+                    
+                    try {
+                        const result = await auth.login(username, password);
+                        
+                        if (result.success) {
+                            showNotification('تم تسجيل الدخول بنجاح', 'success');
+                            
+                            // إذا اختار "تذكرني"
+                            if (rememberMe) {
+                                localStorage.setItem('remember_me', 'true');
+                            }
+                            
+                            // التوجيه للصفحة الرئيسية
+                            setTimeout(() => {
+                                window.location.href = 'index.html';
+                            }, 1000);
+                        }
+                    } catch (error) {
+                        showNotification(error.message, 'error');
+                    }
+                });
+            }
+            
+            // إعداد نسيت كلمة المرور
+            const forgotPasswordLink = document.querySelector('.forgot-password');
+            const forgotPasswordModal = document.getElementById('forgotPasswordModal');
+            const closeButtons = document.querySelectorAll('.btn-close');
+            
+            if (forgotPasswordLink && forgotPasswordModal) {
+                forgotPasswordLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    forgotPasswordModal.classList.add('show');
+                });
+            }
+            
+            // إغلاق النماذج
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.closest('.modal').classList.remove('show');
+                });
+            });
+            
+            // إغلاق النماذج بالنقر خارجها
+            window.addEventListener('click', function(e) {
+                if (e.target.classList.contains('modal')) {
+                    e.target.classList.remove('show');
+                }
+            });
+            
+            // دالة عرض الإشعارات
+            function showNotification(message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.className = `notification notification-${type}`;
+                notification.textContent = message;
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    left: 20px;
+                    padding: 15px;
+                    background: ${type === 'error' ? '#f8d7da' : type === 'success' ? '#d4edda' : '#d1ecf1'};
+                    color: ${type === 'error' ? '#721c24' : type === 'success' ? '#155724' : '#0c5460'};
+                    border: 1px solid ${type === 'error' ? '#f5c6cb' : type === 'success' ? '#c3e6cb' : '#bee5eb'};
+                    border-radius: 5px;
+                    z-index: 1000;
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
