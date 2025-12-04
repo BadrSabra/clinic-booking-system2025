@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="نظام إدارة العيادات الطبية المتكامل - إدارة الأطباء، المرضى، المواعيد، التقارير">
+    <meta name="keywords" content="عيادة, طبي, إدارة, أطباء, مرضى, مواعيد, تقارير">
+    <meta name="author" content="Clinic Management System">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="نظام إدارة العيادات الطبية">
+    <meta property="og:description" content="نظام متكامل لإدارة جميع عمليات العيادة الطبية">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_SA">
+    
+    <!-- Apple Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="نظام العيادة">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Microsoft Meta Tags -->
+    <meta name="msapplication-TileColor" content="#2c3e50">
+    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
+    
+    <!-- PWA -->
+    <meta name="theme-color" content="#2c3e50">
+    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+    
+    <!-- Title -->
+    <title>نظام إدارة العيادة الطبية | CMS Pro</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="assets/fonts/arabic-fonts.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/themes.css">
+    
+    <!-- Icons -->
+    <link rel="icon" href="assets/images/icons/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="assets/images/icons/favicon.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="assets/images/icons/logo.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
+    
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="assets/js/core/database.js" as="script">
+    <link rel="preload" href="assets/js/core/auth.js" as="script">
+    <link rel="preload" href="app.js" as="script">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>جاري تحميل النظام...</p>
+        </div>
+    </div>
+
+    <!-- System Notification Area -->
+    <div id="systemNotifications" class="system-notifications"></div>
+
+    <!-- Offline Indicator -->
+    <div id="offlineIndicator" class="offline-indicator">
+        <i class="fas fa-wifi-slash"></i>
+        <span>أنت غير متصل بالإنترنت</span>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="assets/images/icons/logo.png" alt="شعار النظام" class="logo-img">
+                    <h1 class="logo-text">نظام العيادة</h1>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="تبديل القائمة">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <div class="sidebar-menu">
+                <ul class="menu-list">
+                    <li class="menu-item">
+                        <a href="#dashboard" class="menu-link active" data-section="dashboard">
+                            <i class="fas fa-home"></i>
+                            <span class="menu-text">لوحة التحكم</span>
+                            <span class="menu-badge" id="dashboardBadge">0</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="#doctors" class="menu-link" data-section="doctors">
+                            <i class="fas fa-user-md"></i>
+                            <span class="menu-text">إدارة الأطباء</span>
+                            <span class="menu-badge" id="doctorsBadge">0</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="#patients" class="menu-link" data-section="patients">
+                            <i class="fas fa-user-injured"></i>
+                            <span class="menu-text">إدارة المرضى</span>
+                            <span class="menu-badge" id="patientsBadge">0</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="#appointments" class="menu-link" data-section="appointments">
+                            <i class="fas fa-calendar-check"></i>
+                            <span class="menu-text">المواعيد</span>
+                            <span class="menu-badge" id="appointmentsBadge">0</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="#prescriptions" class="menu-link" data-section="prescriptions">
+                            <i class="fas fa-prescription"></i>
+                            <span class="menu-text">الوصفات الطبية</span>
+                            <span class="menu-badge" id="prescriptionsBadge">0</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="#inventory" class="menu-link" data-section="inventory">
+                            <i class="fas fa-pills"></i>
+                            <span class="menu-text">المخزون</span>
+                            <span class="menu-badge" id="inventoryBadge">0</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="#billing" class="menu-link" data-section="billing">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span class="menu-text">الفواتير</span>
+                            <span class="menu-badge" id="billingBadge">0</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="#reports" class="menu-link" data-section="reports">
+                            <i class="fas fa-chart-bar"></i>
+                            <span class="menu-text">التقارير</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item menu-divider"></li>
+                    
+                    <li class="menu-item">
+                        <a href="#settings" class="menu-link" data-section="settings">
+                            <i class="fas fa-cog"></i>
+                            <span class="menu-text">الإعدادات</span>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="#help" class="menu-link" data-section="help">
+                            <i class="fas fa-question-circle"></i>
+                            <span class="menu-text">المساعدة</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name" id="currentUser">المسؤول</span>
+                        <span class="user-role">مدير النظام</span>
+                    </div>
+                </div>
+                <button class="btn-logout" id="logoutBtn" aria-label="تسجيل الخروج">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content" id="mainContent">
+            <!-- Top Navigation Bar -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button class="btn-menu-toggle" id="menuToggle" aria-label="إظهار/إخفاء القائمة">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="breadcrumb" id="breadcrumb">
+                        <span class="breadcrumb-item active">لوحة التحكم</span>
+                    </div>
+                </div>
+                
+                <div class="top-bar-right">
+                    <div class="top-bar-actions">
+                        <!-- Quick Search -->
+                        <div class="search-container">
+                            <input type="text" 
+                                   class="search-input" 
+                                   id="globalSearch" 
+                                   placeholder="بحث في النظام..."
+                                   aria-label="بحث في النظام">
+                            <button class="search-btn" aria-label="بحث">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Notifications -->
+                        <div class="notifications-dropdown">
+                            <button class="btn-notifications" id="notificationsBtn" aria-label="الإشعارات">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-count" id="notificationCount">0</span>
+                            </button>
+                            <div class="notifications-menu" id="notificationsMenu">
+                                <div class="notifications-header">
+                                    <h4>الإشعارات</h4>
+                                    <button class="btn-mark-all-read" id="markAllRead">تعيين الكل كمقروء</button>
+                                </div>
+                                <div class="notifications-list" id="notificationsList">
+                                    <!-- Dynamic notifications will be inserted here -->
+                                </div>
+                                <div class="notifications-footer">
+                                    <a href="#notifications" class="view-all">عرض جميع الإشعارات</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Actions -->
+                        <div class="quick-actions-dropdown">
+                            <button class="btn-quick-actions" id="quickActionsBtn" aria-label="الإجراءات السريعة">
+                                <i class="fas fa-bolt"></i>
+                            </button>
+                            <div class="quick-actions-menu">
+                                <button class="quick-action-item" onclick="openQuickForm('patient')">
+                                    <i class="fas fa-user-plus"></i>
+                                    <span>مريض جديد</span>
+                                </button>
+                                <button class="quick-action-item" onclick="openQuickForm('appointment')">
+                                    <i class="fas fa-calendar-plus"></i>
+                                    <span>موعد جديد</span>
+                                </button>
+                                <button class="quick-action-item" onclick="generateQuickReport()">
+                                    <i class="fas fa-file-pdf"></i>
+                                    <span>تقرير سريع</span>
+                                </button>
+                                <button class="quick-action-item" onclick="backupNow()">
+                                    <i class="fas fa-download"></i>
+                                    <span>نسخة احتياطية</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Theme Toggle -->
+                        <button class="btn-theme-toggle" id="themeToggle" aria-label="تبديل المظهر">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Sections -->
+            <div class="content-sections">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="content-section active">
+                    <!-- Content will be loaded dynamically by JavaScript -->
+                </section>
+
+                <!-- Doctors Management Section -->
+                <section id="doctors" class="content-section">
+                    <!-- Content will be loaded dynamically by JavaScript -->
+                </section>
+
+                <!-- Patients Management Section -->
+                <section id="patients" class="content-section">
+                    <!-- Content will be loaded dynamically by JavaScript -->
+                </section>
+
+                <!-- Appointments Section -->
+                <section id="appointments" class="content-section">
+                    <!-- Content will be loaded dynamically by JavaScript -->
+                </section>
+
+                <!-- Prescriptions Section -->
+                <section id="prescriptions" class="content-section">
+                    <!-- Content will be loaded dynamically by JavaScript -->
+                </section>
+
+                <!-- Inventory Section -->
+                <section id="inventory" class="content-section">
+                    <!-- Content will be loaded dynamically by JavaScript -->
+                </section>
+
+                <!-- Billing Section -->
+                <section id="billing" class="content-section">
+                    <!-- Content will be loaded dynamically by JavaScript -->
+                </section>
+
+                <!-- Reports Section -->
+                <section id="reports" class="content-section">
+                    <!-- Content will be loaded dynamically by JavaScript -->
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings" class="content-section">
+                    <!-- Content will be loaded dynamically by JavaScript -->
+                </section>
+
+                <!-- Help Section -->
+                <section id="help" class="content-section">
+                    <!-- Content will be loaded dynamically by JavaScript -->
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals Container -->
+    <div id="modalsContainer"></div>
+
+    <!-- JavaScript Files -->
+    <script src="assets/js/core/database.js"></script>
+    <script src="assets/js/core/auth.js"></script>
+    <script src="assets/js/core/ui.js"></script>
+    <script src="assets/js/modules/dashboard.js"></script>
+    <script src="assets/js/modules/doctors.js"></script>
+    <script src="assets/js/modules/patients.js"></script>
+    <script src="assets/js/modules/appointments.js"></script>
+    <script src="assets/js/modules/prescriptions.js"></script>
+    <script src="assets/js/modules/inventory.js"></script>
+    <script src="assets/js/modules/billing.js"></script>
+    <script src="assets/js/modules/reports.js"></script>
+    <script src="assets/js/modules/settings.js"></script>
+    <script src="assets/js/utils/helpers.js"></script>
+    <script src="assets/js/utils/validators.js"></script>
+    <script src="app.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful');
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
