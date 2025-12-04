@@ -1,0 +1,306 @@
+/* خطوط عربية لنظام إدارة العيادة */
+
+@font-face {
+    font-family: 'Noto Sans Arabic';
+    src: url('NotoSansArabic-Regular.woff2') format('woff2'),
+         url('NotoSansArabic-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Sans Arabic';
+    src: url('NotoSansArabic-Bold.woff2') format('woff2'),
+         url('NotoSansArabic-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Sans Arabic';
+    src: url('NotoSansArabic-Light.woff2') format('woff2'),
+         url('NotoSansArabic-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Sans Arabic';
+    src: url('NotoSansArabic-Medium.woff2') format('woff2'),
+         url('NotoSansArabic-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Sans Arabic';
+    src: url('NotoSansArabic-SemiBold.woff2') format('woff2'),
+         url('NotoSansArabic-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* خطوط احتياطية */
+body {
+    font-family: 'Noto Sans Arabic', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* تخصيص الخطوط */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: bold;
+    line-height: 1.3;
+}
+
+.logo-text {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.btn {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 500;
+}
+
+.menu-text {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 500;
+}
+
+.section-title {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 600;
+}
+
+.stat-title {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 400;
+}
+
+.form-label {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 500;
+}
+
+.data-table th {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 600;
+}
+
+.alert {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 400;
+}
+
+.breadcrumb-item {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 400;
+}
+
+.notification-title {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 600;
+}
+
+.user-name {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 600;
+}
+
+.user-role {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 400;
+}
+
+.badge {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 500;
+}
+
+.pagination-btn {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 500;
+}
+
+.chart-action-btn {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 500;
+}
+
+.btn-view-all {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 500;
+}
+
+.quick-stat-label {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 400;
+}
+
+.stat-subtitle {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 300;
+}
+
+.form-text {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 300;
+}
+
+.modal-title {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 600;
+}
+
+.search-input::placeholder {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-weight: 300;
+}
+
+/* تحسين القراءة للنصوص العربية */
+body {
+    text-align: right;
+    line-height: 1.8;
+    letter-spacing: 0;
+}
+
+/* تحسين عرض الأحرف العربية */
+* {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* تحسين التباعد للحروف العربية */
+p, li, span, div {
+    word-spacing: -0.1em;
+    letter-spacing: 0;
+}
+
+/* تحسين عرض الأرقام العربية */
+.numbers {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-feature-settings: 'numr';
+}
+
+/* دعم الأرقام الهندية */
+@supports (font-variant-numeric: arabic-indic) {
+    .numbers {
+        font-variant-numeric: arabic-indic;
+    }
+}
+
+/* تخصيص شريط التمرير للنصوص العربية */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* تحسين عرض النصوص الطويلة */
+.text-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* تحسين المسافات للعناوين */
+h1 {
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    margin-bottom: 1.25rem;
+}
+
+h3 {
+    margin-bottom: 1rem;
+}
+
+/* تحسين المسافات للفقرات */
+p {
+    margin-bottom: 1rem;
+}
+
+/* تحسين عرض النصوص في الأزرار */
+.btn {
+    line-height: 1.5;
+    padding: 0.75rem 1.5rem;
+}
+
+/* تحسين عرض النصوص في حقول الإدخال */
+.form-control {
+    line-height: 1.5;
+    padding: 0.75rem 1rem;
+}
+
+/* تحسين عرض النصوص في الجداول */
+.data-table td {
+    line-height: 1.6;
+    padding: 0.75rem 1rem;
+}
+
+/* تحسين عرض النصوص في البطاقات */
+.stat-card, .chart-container, .activity-container {
+    line-height: 1.6;
+}
+
+/* تحسين عرض التواريخ العربية */
+.date-arabic {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    direction: rtl;
+}
+
+/* تحسين عرض الأوقات */
+.time-format {
+    font-feature-settings: 'tnum';
+    font-variant-numeric: tabular-nums;
+}
+
+/* دعم الاتجاه RTL */
+[dir="rtl"] {
+    text-align: right;
+}
+
+[dir="rtl"] .form-control {
+    text-align: right;
+}
+
+[dir="rtl"] .data-table {
+    text-align: right;
+}
+
+[dir="rtl"] .btn {
+    text-align: center;
+}
+
+/* تحسين الطباعة للنصوص العربية */
+@media print {
+    body {
+        font-family: 'Noto Sans Arabic', serif;
+        line-height: 1.6;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Noto Sans Arabic', serif;
+        font-weight: bold;
+    }
+}
